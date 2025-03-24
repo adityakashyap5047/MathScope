@@ -27,11 +27,11 @@ class DataTransformation:
         '''
 
         try:
-            numerical_columns = ["writing_score", "reading_score"],
+            numerical_columns = ["writing_score", "reading_score"]
             categorical_columns = [
                 "gender",
                 "race_ethnicity",
-                "parential_level_of_education",
+                "parental_level_of_education",
                 "lunch",
                 "test_preparation_course"
             ]
@@ -39,7 +39,7 @@ class DataTransformation:
             num_pipeline = Pipeline(
                 steps=[
                     ("imputer", SimpleImputer(strategy="median")),
-                    ("scaler", StandardScaler)
+                    ("scaler", StandardScaler())
                 ]
             )
 
@@ -47,7 +47,7 @@ class DataTransformation:
                 steps=[
                     ("imputer", SimpleImputer(strategy="most_frequent")),
                     ("one_hot_encoder", OneHotEncoder()),
-                    ("scaler", StandardScaler())
+                    ("scaler", StandardScaler(with_mean=False))
                 ]
             )
 
@@ -110,6 +110,6 @@ class DataTransformation:
                 self.data_transformation_config.preprocessor_obj_file_path
             )
 
-        except:
+        except Exception as e:
 
-            pass
+            raise CustomException(e, sys)

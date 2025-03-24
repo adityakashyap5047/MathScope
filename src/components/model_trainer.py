@@ -49,7 +49,9 @@ class ModelTrainer:
 
             model_report:dict=evaluate_models(X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models=models)
 
-            best_model_score = max(sorted(model_report.values()))
+            filtered_model_report = {model: score for model, score in model_report.items() if score < 0.99}
+
+            best_model_score = max(sorted(filtered_model_report.values()))
 
             best_model_name = list(model_report.keys())[
                 list(model_report.values()).index(best_model_score)

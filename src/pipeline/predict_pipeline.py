@@ -10,8 +10,8 @@ class PredictPipeline:
 
     def predict(self, features):
         try:
-            model_path = 'artifacts\model.pkl'
-            preprocessor_path = 'artifacts\preprocessor.pkl'
+            model_path = 'artifacts/model.pkl'
+            preprocessor_path = 'artifacts/preprocessor.pkl'
 
             model = load_object(file_path=model_path)
             preprocessor = load_object(file_path=preprocessor_path)
@@ -59,3 +59,17 @@ class CustomData:
         except Exception as e:
 
             raise CustomException(e, sys)
+
+if __name__ == "__main__":
+    data = CustomData(
+        gender="male",
+        race_ethnicity="group B",
+        parental_level_of_education="bachelor's degree",
+        lunch="standard",
+        test_preparation_course="none",
+        reading_score=90,
+        writing_score=30
+    )
+    print(data.get_data_as_data_frame())
+    predict_pipeline = PredictPipeline()
+    print(predict_pipeline.predict(data.get_data_as_data_frame()))
